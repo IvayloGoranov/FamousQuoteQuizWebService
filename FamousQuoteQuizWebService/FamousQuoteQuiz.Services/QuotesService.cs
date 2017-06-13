@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 using FamousQuoteQuiz.Data.Repositories;
 using FamousQuoteQuiz.Models;
 using FamousQuoteQuiz.Services.DTOs;
 using FamousQuoteQuiz.Utils;
 using FamousQuoteQuiz.Data;
-using System.Collections.Generic;
 
 namespace FamousQuoteQuiz.Services
 {

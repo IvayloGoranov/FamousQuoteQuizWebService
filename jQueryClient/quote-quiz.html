@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Famous Quote Quiz</title>
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/Site.css">
+        <script src="scripts/jquery-3.2.1.min.js"></script>
+        <script src="scripts/quote-quiz.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@(Html.ActionLink<HomeController>("Home", c => c.Index()))</li>
+                            <li>@(Html.ActionLink<SettingsController>("Settings", c => c.Index()))</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+
+            <div class="container body-content">
+
+                <section id="viewHome">
+                    <div id="binary-mode">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p class="text-muted">
+                                    @Model.AuthorAnswers.First()
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button data-url='@Url.Action("ProcessAnswer", "Home",
+                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers.First(), answer = "yes" } )'
+                                        class="process-answer btn btn-success">
+                                    Yes
+                                </button>
+                                <button data-url='@Url.Action("ProcessAnswer", "Home",
+                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers.First(), answer = "no" } )'
+                                        class="process-answer btn btn-danger">
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="multipleMode">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="btn-group-vertical">
+                                    @for (int i = 0; i < Model.AuthorAnswers.Count; i++)
+                                    {
+                                    <button data-url='@Url.Action("ProcessAnswer", "Home",
+                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers[i]} )'
+                                            class="process-answer btn btn-primary">
+                                        ->@Model.AuthorAnswers[i]
+                                    </button>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+
+            </div>
+        </main>
+
+        <hr />
+        <footer>
+            <p>&copy; Famous Quote Quiz</p>
+        </footer>
+    </body>
+</html>

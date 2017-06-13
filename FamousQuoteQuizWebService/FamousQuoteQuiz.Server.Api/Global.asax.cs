@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
+
+using Newtonsoft.Json.Serialization;
+
+using FamousQuoteQuiz.Data;
+using FamousQuoteQuiz.Data.Migrations;
 
 namespace FamousQuoteQuiz.Server.Api
 {
@@ -13,11 +12,12 @@ namespace FamousQuoteQuiz.Server.Api
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            Database.SetInitializer(
+                new MigrateDatabaseToLatestVersion<QuoteQuizContext, DbMigrationsConfig>());
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutofacConfig.RegisterAutofac();
+            GlobalConfiguration.Configuration.Formatters
+                .JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
