@@ -8,7 +8,8 @@
         <script src="scripts/jquery-3.2.1.min.js"></script>
         <script src="scripts/quote-quiz.js"></script>
     </head>
-    <body>
+
+    <body onload="startApp()">
         <header>
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
@@ -21,66 +22,96 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li>@(Html.ActionLink<HomeController>("Home", c => c.Index()))</li>
-                            <li>@(Html.ActionLink<SettingsController>("Settings", c => c.Index()))</li>
+                            <li><a href="#" id="linkHome">Home</a></li>
+                            <li><a href="#" id="linkSettings">Settings</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </header>
 
+        <section id="infoBox" class="alert alert-success">Info</section>
+        <section id="errorBox" class="alert alert-danger">Error</section>
+
         <main>
 
-            <div class="container body-content">
-
-                <section id="viewHome">
-                    <div id="binary-mode">
+            <section id="viewHome">
+                <div class="container body-content">
+                    <h2 class="text-muted">Who said it?</h2>
                         <div class="row">
-                            <div class="col-md-12 text-center">
-                                <p class="text-muted">
-                                    @Model.AuthorAnswers.First()
+                            <div class="col-md-12 servive-block servive-block-pink">
+                                <p id="quote">
+                                    All warfare is based on deception.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <button data-url='@Url.Action("ProcessAnswer", "Home",
-                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers.First(), answer = "yes" } )'
-                                        class="process-answer btn btn-success">
-                                    Yes
-                                </button>
-                                <button data-url='@Url.Action("ProcessAnswer", "Home",
-                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers.First(), answer = "no" } )'
-                                        class="process-answer btn btn-danger">
-                                    No
-                                </button>
+                        <div id="results">
+
+                            <div id="binary-mode">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <p class="text-muted">
+                                            Sun Tsu
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button data-url='' class="process-answer btn btn-success">
+                                            Yes
+                                        </button>
+                                        <button data-url='' class="process-answer btn btn-danger">
+                                            No
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div id="multipleMode">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <div class="btn-group-vertical">
-                                    @for (int i = 0; i < Model.AuthorAnswers.Count; i++)
-                                    {
-                                    <button data-url='@Url.Action("ProcessAnswer", "Home",
-                                      new { id = Model.Quote.Id, author = Model.AuthorAnswers[i]} )'
-                                            class="process-answer btn btn-primary">
-                                        ->@Model.AuthorAnswers[i]
-                                    </button>
-                                    }
-
+                            <div id="multiple-mode">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <div class="btn-group-vertical">
+                                            <button data-url='@Url.Action("ProcessAnswer", "Home",
+                                              new { id = Model.Quote.Id, author = Model.AuthorAnswers[i]} )'
+                                                    class="process-answer btn btn-primary">
+                                                Bay Ganyo
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </section>
 
+                <section id="viewSettings">
+                    <form id="formSettings">
+                        <div class="container body-content">
+                            <div class="form-horizontal">
+                                <hr />
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <select class="form-control"
+                                                data-val="true"
+                                                data-val-required="The Quiz mode type field is required."
+                                                id="type" name="type"><option value="">Select quiz mode</option>
+                                            <option selected="selected" value="1">Binary</option>
+                                            <option value="2">MultipleChoice</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-            </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Set" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
         </main>
 
         <hr />

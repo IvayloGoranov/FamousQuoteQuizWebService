@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace FamousQuoteQuiz.Server.Api
 {
@@ -6,6 +7,8 @@ namespace FamousQuoteQuiz.Server.Api
     {
         public static void Register(HttpConfiguration config)
         {
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
